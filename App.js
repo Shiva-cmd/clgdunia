@@ -1,112 +1,108 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+const DATA = [
+  {
+    id: '1',
+    title: 'Monday',
+    temp: '34',
+  },
+  {
+    id: '2',
+    title: 'Monday',
+    temp: '34',
+  },
+  {
+    id: '3',
+    title: 'Monday',
+    temp: '34',
+  },
+  {
+    id: '4',
+    title: 'Monday',
+    temp: '34',
+  },
+  {
+    id: 5,
+    title: 'Monday',
+    temp: '34',
+  },
+];
+const Item = ({title, temp}) => (
+  <View>
+    <View style={styles.border} />
+    <View style={styles.item}>
+      <View>
+        <Text style={styles.title}>{title}</Text>
+      </View>
+      <View>
+        <Text style={styles.temp}>{temp}</Text>
+      </View>
     </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+  </View>
+);
+const App = () => {
+  const renderItem = ({item}) => <Item title={item.title} temp={item.temp} />;
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.tempContainer}>
+        <View>
+          <Text style={styles.tempValue}>10</Text>
         </View>
-      </ScrollView>
+        <View>
+          <Text style={styles.tempCity}>Delhi</Text>
+        </View>
+      </View>
+      <View>
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      </View>
     </SafeAreaView>
   );
 };
+export default App;
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
+  item: {
+    flexDirection: 'row',
+    padding: 8,
+    marginVertical: 4,
+    marginHorizontal: 8,
+
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  title: {
+    fontSize: 28,
+    marginHorizontal: 8,
+  },
+  temp: {
+    fontSize: 28,
+    marginHorizontal: 8,
+    paddingRight: 20,
+  },
+  tempContainer: {
+    justifyContent: 'center',
+    flex: 1,
+    alignItems: 'center',
+  },
+  tempValue: {
+    fontSize: 80,
+    fontWeight: 'bold',
+  },
+  tempCity: {
+    fontSize: 40,
     fontWeight: '600',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  border: {
+    borderColor: 'black',
+    borderWidth: 0.5,
   },
 });
-
-export default App;
