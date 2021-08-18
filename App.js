@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import LottieView from 'lottie-react-native';
 import Geolocation from '@react-native-community/geolocation';
@@ -58,32 +57,25 @@ function MainScreen() {
   const dispatch = useDispatch();
   const [latitude, setlatitude] = useState('');
   const [longitude, setlongitude] = useState('');
-  const {weatherApi: tempData, success, error} = weather;
+  const {weatherApi: tempData, success, error, loading} = weather;
   const [current, setCurrent] = useState('');
   const [daily, setDaily] = useState('');
   const [timezone, setTimezone] = useState('');
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(true);
     dispatch(weather_API(latitude, longitude));
-    setLoading(false);
-  }, [dispatch, latitude, longitude, loading]);
+  }, [dispatch, latitude, longitude]);
   useEffect(() => {
     if (success) {
-      setLoading(true);
       setCurrent(tempData.current);
       setDaily(tempData.daily);
       setTimezone(tempData.timezone);
-      setLoading(false);
     }
-  }, [success, tempData, current, daily, timezone, loading]);
-  console.log('current', current);
-  console.log('daily', daily);
+  }, [success, tempData, current, daily, timezone]);
   useEffect(() => {
     Geolocation.getCurrentPosition(info => setlatitude(info.coords.latitude));
     Geolocation.getCurrentPosition(info => setlongitude(info.coords.longitude));
   }, []);
-  console.log(error);
   const retryButton = () => {
     dispatch(weather_API(latitude, longitude));
   };
@@ -112,18 +104,14 @@ function MainScreen() {
               {error === true ? (
                 <>
                   <View>
-                    <Text style={{justifyContent: 'center', fontSize: 68}}>
+                    <Text style={styles.something}>
                       Something Went Wrong at our end
                     </Text>
 
                     <TouchableOpacity
                       onPress={retryButton}
-                      style={{
-                        borderWidth: 3,
-                        borderColor: 'black',
-                        width: 104,
-                      }}>
-                      <Text style={{fontSize: 40}}>Retry</Text>
+                      style={styles.button}>
+                      <Text style={styles.retry}>Retry</Text>
                     </TouchableOpacity>
                   </View>
                 </>
@@ -195,4 +183,11 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 0.5,
   },
+  something: {justifyContent: 'center', fontSize: 68},
+  button: {
+    borderWidth: 3,
+    borderColor: 'black',
+    width: 104,
+  },
+  retry: {fontSize: 40},
 });

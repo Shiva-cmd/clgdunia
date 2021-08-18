@@ -23,14 +23,12 @@ export const weather_API = (lat, lon) => async (dispatch) => {
                 type: WEATHER_API_SUCCESS,
                 payload: response.data,
             });
-            console.log("response",response)
         })
         .catch(function (error) {
             dispatch({
                 type: WEATHER_API_FAIL,
                 payload: error,
             });
-            console.log(error);
         });
 
 };
