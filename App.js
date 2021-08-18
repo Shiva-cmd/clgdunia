@@ -1,6 +1,7 @@
 import React from 'react';
+import LottieView from 'lottie-react-native';
 
-import {FlatList, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 const DATA = [
   {
     id: '1',
@@ -28,7 +29,7 @@ const DATA = [
     temp: '34',
   },
 ];
-const Item = ({title, temp}) => (
+const Item = ({ title, temp }) => (
   <View>
     <View style={styles.border} />
     <View style={styles.item}>
@@ -42,7 +43,7 @@ const Item = ({title, temp}) => (
   </View>
 );
 const App = () => {
-  const renderItem = ({item}) => <Item title={item.title} temp={item.temp} />;
+  const renderItem = ({ item }) => <Item title={item.title} temp={item.temp} />;
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.tempContainer}>
@@ -60,6 +61,22 @@ const App = () => {
           keyExtractor={item => item.id}
         />
       </View>
+      {/** <LottieView
+        source={require('./src/assets/lottie/loader.json')}
+        colorFilters={[
+          {
+            keypath: 'button',
+            color: '#F00000',
+          },
+          {
+            keypath: 'Sending Loader',
+            color: '#F00000',
+          },
+        ]}
+        autoPlay
+        loop
+      />
+      */}
     </SafeAreaView>
   );
 };
