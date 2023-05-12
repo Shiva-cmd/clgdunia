@@ -29,6 +29,7 @@ const Item = ({title, temp}) => (
 );
 
 const App = () => {
+  console.log("sddsds")
   return (
     <Provider store={store}>
       <MainScreen />
