@@ -30,6 +30,7 @@ const Item = ({title, temp}) => (
 
 const App = () => {
   console.log("sddsds")
+  console.log("logoggo");
   return (
     <Provider store={store}>
       <MainScreen />
